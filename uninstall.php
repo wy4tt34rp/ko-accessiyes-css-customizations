@@ -1,6 +1,6 @@
 <?php
 /**
- * Uninstall KO: AccessiYES CSS Customizations.
+ * Uninstall KO: AccessiYES Widget Manager.
  */
 
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;

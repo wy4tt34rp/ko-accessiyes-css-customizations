@@ -35,11 +35,17 @@ $provenance = file_get_contents( $root . '/SOURCE-PROVENANCE.md' );
 $wp_readme = file_get_contents( $root . '/readme.txt' );
 $uninstall = file_get_contents( $root . '/uninstall.php' );
 
-ko_accessiyes_assert( false !== strpos( $main_php, 'Plugin Name: KO: AccessiYES CSS Customizations' ), 'Exact plugin display name is missing.' );
-ko_accessiyes_assert( false !== strpos( $main_php, 'Version: 1.1.0' ), 'Plugin header version is not 1.1.0.' );
-ko_accessiyes_assert( false !== strpos( $main_php, "define( 'KO_ACCESSIYES_CSS_VERSION', '1.1.0' )" ), 'Runtime version is not 1.1.0.' );
+ko_accessiyes_assert( false !== strpos( $main_php, 'Plugin Name: KO: AccessiYES Widget Manager' ), 'Exact plugin display name is missing.' );
+ko_accessiyes_assert( false !== strpos( $main_php, 'Version: 1.2.0' ), 'Plugin header version is not 1.2.0.' );
+ko_accessiyes_assert( false !== strpos( $main_php, "define( 'KO_ACCESSIYES_CSS_VERSION', '1.2.0' )" ), 'Runtime version is not 1.2.0.' );
 ko_accessiyes_assert( false === strpos( $main_php, 'Requires Plugins:' ), 'The standalone manager must not require the official plugin.' );
-ko_accessiyes_assert( false !== strpos( $wp_readme, 'Stable tag: 1.1.0' ), 'WordPress readme stable tag is not 1.1.0.' );
+ko_accessiyes_assert( false !== strpos( $wp_readme, 'Stable tag: 1.2.0' ), 'WordPress readme stable tag is not 1.2.0.' );
+ko_accessiyes_assert( false !== strpos( $main_php, "'Button size'" ), 'Button Size label is missing.' );
+ko_accessiyes_assert( false !== strpos( $main_php, "'Icon size'" ), 'Icon Size label is missing.' );
+ko_accessiyes_assert( false === strpos( $main_php, "'Launcher size'" ), 'Ambiguous Launcher Size label remains.' );
+ko_accessiyes_assert( false === strpos( $main_php, "'Inner icon width'" ), 'Old Inner Icon Width label remains.' );
+ko_accessiyes_assert( false !== strpos( $main_php, "const OPTION_KEY       = 'ko_accessiyes_css_customizations';" ), 'Compatible option key changed during the display-name rebrand.' );
+ko_accessiyes_assert( false !== strpos( $main_php, "const MENU_SLUG        = 'ko-accessiyes-css-customizations';" ), 'Compatible menu slug changed during the display-name rebrand.' );
 
 ko_accessiyes_assert( false !== strpos( $main_php, 'https://www.accessiyes.com/get-your-script/' ), 'Script generator URL is missing from the settings screen.' );
 ko_accessiyes_assert( false !== strpos( $readme, 'https://www.accessiyes.com/get-your-script/' ), 'Script generator URL is missing from README.md.' );

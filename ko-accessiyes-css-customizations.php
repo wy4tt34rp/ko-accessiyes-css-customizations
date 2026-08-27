@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: KO: AccessiYES CSS Customizations
+ * Plugin Name: KO: AccessiYES Widget Manager
  * Plugin URI: https://velaagency.com
  * Description: Loads a site-specific AccessiYES script, mirrors the vendor widget controls, and adds responsive positioning and ring styling inside the widget's Shadow DOM.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Requires at least: 6.5
  * Requires PHP: 7.4
  * Author: KO
@@ -14,7 +14,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'KO_ACCESSIYES_CSS_VERSION', '1.1.0' );
+define( 'KO_ACCESSIYES_CSS_VERSION', '1.2.0' );
 define( 'KO_ACCESSIYES_CSS_FILE', __FILE__ );
 define( 'KO_ACCESSIYES_CSS_URL', plugin_dir_url( __FILE__ ) );
 
@@ -139,7 +139,7 @@ final class KO_AccessiYES_CSS_Customizations {
 
 	public function add_settings_page() {
 		add_options_page(
-			__( 'KO: AccessiYES CSS Customizations', 'ko-accessiyes-css-customizations' ),
+			__( 'KO: AccessiYES Widget Manager', 'ko-accessiyes-css-customizations' ),
 			__( 'AccessiYES', 'ko-accessiyes-css-customizations' ),
 			'manage_options',
 			self::MENU_SLUG,
@@ -819,7 +819,7 @@ final class KO_AccessiYES_CSS_Customizations {
 		<div class="wrap ko-accessiyes-css-wrap">
 			<header class="ko-accessiyes-css-hero">
 				<a class="ko-accessiyes-css-brand" href="https://velaagency.com" target="_blank" rel="noopener"><img src="<?php echo esc_url( KO_ACCESSIYES_CSS_URL . 'assets/images/vela-logo-white.svg' ); ?>" alt="<?php esc_attr_e( 'Vela', 'ko-accessiyes-css-customizations' ); ?>"></a>
-				<div><h1><?php esc_html_e( 'KO: AccessiYES CSS Customizations', 'ko-accessiyes-css-customizations' ); ?></h1><p><?php esc_html_e( 'Reusable script management, vendor-equivalent controls, and Shadow DOM customizations.', 'ko-accessiyes-css-customizations' ); ?></p></div>
+				<div><h1><?php esc_html_e( 'KO: AccessiYES Widget Manager', 'ko-accessiyes-css-customizations' ); ?></h1><p><?php esc_html_e( 'Reusable script management, vendor-equivalent controls, and Shadow DOM customizations.', 'ko-accessiyes-css-customizations' ); ?></p></div>
 			</header>
 
 			<?php if ( $accessiyes_active ) : ?>
@@ -845,8 +845,8 @@ final class KO_AccessiYES_CSS_Customizations {
 						<div class="ko-accessiyes-form-grid">
 							<label><span><?php esc_html_e( 'Widget colour', 'ko-accessiyes-css-customizations' ); ?></span><input type="color" name="<?php echo esc_attr( $this->field_name( array( 'appearance', 'primary_color' ) ) ); ?>" value="<?php echo esc_attr( $settings['appearance']['primary_color'] ); ?>"></label>
 							<label><span><?php esc_html_e( 'Icon shape', 'ko-accessiyes-css-customizations' ); ?></span><select name="<?php echo esc_attr( $this->field_name( array( 'appearance', 'icon_id' ) ) ); ?>"><?php foreach ( array( 'default' => 'Default', 'accessibility' => 'Accessibility person', 'wheel' => 'Wheelchair', 'assist' => 'Assist' ) as $value => $label ) : ?><option value="<?php echo esc_attr( $value ); ?>" <?php selected( $settings['appearance']['icon_id'], $value ); ?>><?php echo esc_html( $label ); ?></option><?php endforeach; ?></select></label>
-							<label><span><?php esc_html_e( 'Launcher size', 'ko-accessiyes-css-customizations' ); ?></span><select name="<?php echo esc_attr( $this->field_name( array( 'appearance', 'icon_size' ) ) ); ?>"><option value="32" <?php selected( $settings['appearance']['icon_size'], 32 ); ?>><?php esc_html_e( 'Small — 32px', 'ko-accessiyes-css-customizations' ); ?></option><option value="48" <?php selected( $settings['appearance']['icon_size'], 48 ); ?>><?php esc_html_e( 'Medium — 48px', 'ko-accessiyes-css-customizations' ); ?></option><option value="64" <?php selected( $settings['appearance']['icon_size'], 64 ); ?>><?php esc_html_e( 'Large — 64px', 'ko-accessiyes-css-customizations' ); ?></option></select></label>
-							<label><span><?php esc_html_e( 'Inner icon width', 'ko-accessiyes-css-customizations' ); ?></span><span class="ko-accessiyes-inline-number"><input type="number" min="0" max="64" name="<?php echo esc_attr( $this->field_name( array( 'appearance', 'inner_icon_size' ) ) ); ?>" value="<?php echo esc_attr( $settings['appearance']['inner_icon_size'] ); ?>"><small>px</small></span><small><?php esc_html_e( 'Use 0 for the vendor default.', 'ko-accessiyes-css-customizations' ); ?></small></label>
+							<label><span><?php esc_html_e( 'Button size', 'ko-accessiyes-css-customizations' ); ?></span><select name="<?php echo esc_attr( $this->field_name( array( 'appearance', 'icon_size' ) ) ); ?>"><option value="32" <?php selected( $settings['appearance']['icon_size'], 32 ); ?>><?php esc_html_e( 'Small — 32px', 'ko-accessiyes-css-customizations' ); ?></option><option value="48" <?php selected( $settings['appearance']['icon_size'], 48 ); ?>><?php esc_html_e( 'Medium — 48px', 'ko-accessiyes-css-customizations' ); ?></option><option value="64" <?php selected( $settings['appearance']['icon_size'], 64 ); ?>><?php esc_html_e( 'Large — 64px', 'ko-accessiyes-css-customizations' ); ?></option></select></label>
+							<label><span><?php esc_html_e( 'Icon size', 'ko-accessiyes-css-customizations' ); ?></span><span class="ko-accessiyes-inline-number"><input type="number" min="0" max="64" step="1" name="<?php echo esc_attr( $this->field_name( array( 'appearance', 'inner_icon_size' ) ) ); ?>" value="<?php echo esc_attr( $settings['appearance']['inner_icon_size'] ); ?>"><small>px</small></span><small><?php esc_html_e( 'Controls the symbol inside the button. Use 0 for the AccessiYES default.', 'ko-accessiyes-css-customizations' ); ?></small></label>
 							<label><span><?php esc_html_e( 'Accessible button label', 'ko-accessiyes-css-customizations' ); ?></span><input type="text" name="<?php echo esc_attr( $this->field_name( array( 'appearance', 'label' ) ) ); ?>" value="<?php echo esc_attr( $settings['appearance']['label'] ); ?>"></label>
 							<label><span><?php esc_html_e( 'Widget menu heading', 'ko-accessiyes-css-customizations' ); ?></span><input type="text" name="<?php echo esc_attr( $this->field_name( array( 'appearance', 'heading' ) ) ); ?>" value="<?php echo esc_attr( $settings['appearance']['heading'] ); ?>"></label>
 						</div>
@@ -919,7 +919,7 @@ final class KO_AccessiYES_CSS_Customizations {
 					<section class="ko-accessiyes-css-panel"><h2><?php esc_html_e( 'Support', 'ko-accessiyes-css-customizations' ); ?></h2><p><a href="mailto:ko@velaagency.com">ko@velaagency.com</a><br><a href="https://velaagency.com" target="_blank" rel="noopener">velaagency.com</a></p></section>
 				</aside>
 			</div>
-			<footer class="ko-accessiyes-css-footer"><?php printf( esc_html__( 'KO: AccessiYES CSS Customizations v%s', 'ko-accessiyes-css-customizations' ), esc_html( KO_ACCESSIYES_CSS_VERSION ) ); ?></footer>
+			<footer class="ko-accessiyes-css-footer"><?php printf( esc_html__( 'KO: AccessiYES Widget Manager v%s', 'ko-accessiyes-css-customizations' ), esc_html( KO_ACCESSIYES_CSS_VERSION ) ); ?></footer>
 		</div>
 		<?php
 	}

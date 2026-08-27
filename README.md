@@ -1,8 +1,8 @@
-# KO: AccessiYES CSS Customizations
+# KO: AccessiYES Widget Manager
 
 ## Overview
 
-KO: AccessiYES CSS Customizations is a reusable, Vela-branded WordPress integration for the AccessiYES accessibility widget. Version 1.1.0 can load a site-specific AccessiYES script itself, rebuild the widget configuration from managed WordPress controls, and place responsive styling inside the widget's open Shadow DOM.
+KO: AccessiYES Widget Manager is a reusable, Vela-branded WordPress integration for the AccessiYES accessibility widget. Version 1.2.0 can load a site-specific AccessiYES script itself, rebuild the widget configuration from managed WordPress controls, and place responsive styling inside the widget's open Shadow DOM.
 
 This is an independently developed KO/Vela integration. It is not affiliated with, sponsored by, or endorsed by AccessiYES. The name AccessiYES is used only to identify the compatible third-party service. No AccessiYES plugin code, JavaScript, CSS, statement templates, images, logos, or administration interface is included. Configuration property names are used solely as the technical interoperability contract for the vendor's CDN widget.
 
@@ -13,7 +13,7 @@ The plugin mirrors the current configuration surface of the official AccessiYES 
 - A third, independently configurable tablet range.
 - Custom mobile, tablet, and desktop breakpoints, visibility, corner, and margins.
 - Separate inner-ring and outer-ring controls.
-- An inner-icon width control.
+- A separate icon-size control for the symbol inside the button.
 - Optional advanced CSS injected directly into the widget's Shadow DOM.
 
 ## Site-Specific Installation Script
@@ -35,7 +35,7 @@ The plugin then rebuilds `_cyA11yConfig` from the saved controls and loads that 
 - Master widget status plus mobile, tablet, and desktop visibility.
 - Primary widget colour.
 - Default, accessibility-person, wheelchair, and assist icons.
-- 32px, 48px, and 64px launcher sizes.
+- 32px, 48px, and 64px button sizes.
 - Accessible launcher label and menu heading.
 - Fallback language and optional visitor language switcher.
 - Alt+A or Option+A keyboard shortcut.
@@ -55,7 +55,7 @@ The independently written KO generated-statement template is English and is popu
 - Independent launcher visibility, corner, horizontal margin, and vertical margin for mobile, tablet, and desktop.
 - Inner ring on/off, width, and colour. This controls the launcher's border.
 - Outer ring on/off, width, and colour. This controls the first solid `box-shadow` layer; a blank colour follows the primary widget colour.
-- Inner person/icon width, with `0` retaining the vendor default.
+- Icon size for the person or selected symbol, with `0` retaining the AccessiYES default.
 - Advanced Shadow DOM CSS for narrowly scoped exceptions.
 
 The subtle depth shadows remain when the solid outer ring is disabled. The separate keyboard focus outline is preserved and its offset is adjusted to the configured outer-ring width. A user-requested high-contrast or forced-colours mode may restore a visible boundary for legibility even when the normal rings are disabled.
@@ -78,11 +78,11 @@ If AccessiYES changes its CDN host, host element, Shadow DOM mode, or internal s
 
 ## Official Plugin Conflict Protection
 
-Do not run this integration and the official `accessibility-widget` plugin as two widget loaders. When the official plugin is active, KO: AccessiYES CSS Customizations shows an admin warning, limits itself to applying the managed Shadow DOM styles to the existing widget, and deliberately does not load a second CDN widget or replace the official plugin's configuration. This preserves version 1.0.0 CSS during the transition.
+Do not run this integration and the official `accessibility-widget` plugin as two widget loaders. When the official plugin is active, KO: AccessiYES Widget Manager shows an admin warning, limits itself to applying the managed Shadow DOM styles to the existing widget, and deliberately does not load a second CDN widget or replace the official plugin's configuration. This preserves version 1.0.0 CSS during the transition.
 
 For a safe transition:
 
-1. Install and activate KO: AccessiYES CSS Customizations while the official plugin remains active.
+1. Install and activate KO: AccessiYES Widget Manager while the official plugin remains active.
 2. Paste the generated script and configure all settings.
 3. Save the settings.
 4. Deactivate the official AccessiYES plugin.
@@ -91,8 +91,8 @@ For a safe transition:
 
 ## Installation
 
-1. Upload `ko-accessiyes-css-customizations-v1.1.0.zip` through **Plugins > Add New > Upload Plugin**, or copy the `ko-accessiyes-css-customizations` directory to `/wp-content/plugins/`.
-2. Activate **KO: AccessiYES CSS Customizations**.
+1. Upload `ko-accessiyes-css-customizations-v1.2.0.zip` through **Plugins > Add New > Upload Plugin**, or copy the `ko-accessiyes-css-customizations` directory to `/wp-content/plugins/`.
+2. Activate **KO: AccessiYES Widget Manager**.
 3. Open **Settings > AccessiYES**.
 4. Paste the full site-specific generator script.
 5. Review the imported values and configure the additional controls.
@@ -113,13 +113,13 @@ This plugin adds and styles a third-party visitor tool. It does not audit, remed
 
 ## Development Notes
 
-- Display name: `KO: AccessiYES CSS Customizations`
+- Display name: `KO: AccessiYES Widget Manager`
 - Plugin slug: `ko-accessiyes-css-customizations`
 - Option key: `ko_accessiyes_css_customizations`
 - Script handle: `ko-accessiyes-css-customizations`
 - Shadow style ID: `ko-accessiyes-css-customizations-rules`
 - Text domain: `ko-accessiyes-css-customizations`
-- Current version: `1.1.0`
+- Current version: `1.2.0`
 - Vela contact: [ko@velaagency.com](mailto:ko@velaagency.com)
 
 ## License
