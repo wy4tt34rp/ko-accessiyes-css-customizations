@@ -1,0 +1,173 @@
+/***** KO ACCESSIYES CSS CUSTOMIZATIONS ADMIN STYLING *****/
+
+/*** Page Layout ***/
+
+.ko-accessiyes-css-wrap {
+	width: auto;
+	max-width: none;
+	color: #171717;
+}
+
+.ko-accessiyes-css-layout {
+	display: grid;
+	grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+	gap: 18px;
+	align-items: start;
+}
+
+.ko-accessiyes-css-sidebar {
+	display: grid;
+	gap: 18px;
+}
+
+/*** Vela Hero ***/
+
+.ko-accessiyes-css-hero {
+	display: flex;
+	align-items: center;
+	gap: 34px;
+	margin: 20px 0;
+	padding: 34px 40px;
+	border-radius: 3px;
+	background: #0a0a0a;
+	color: #ffffff;
+}
+
+.ko-accessiyes-css-brand {
+	display: block;
+	flex: 0 0 auto;
+	line-height: 0;
+}
+
+.ko-accessiyes-css-brand img {
+	width: 220px;
+	height: auto;
+	max-height: 90px;
+}
+
+.ko-accessiyes-css-hero h1 {
+	margin: 0 0 8px;
+	color: #ffffff;
+	font-size: 32px;
+	line-height: 1.2;
+}
+
+.ko-accessiyes-css-hero > div > p {
+	margin: 0;
+	color: #d0d0d0;
+	font-size: 15px;
+}
+
+/*** WordPress Admin Notices ***/
+
+.ko-accessiyes-css-wrap .notice,
+.ko-accessiyes-css-wrap .notice p {
+	color: #1d2327;
+}
+
+/*** Content Panels ***/
+
+.ko-accessiyes-css-panel {
+	padding: 24px;
+	border: 1px solid #c7c7c7;
+	border-top: 4px solid #171717;
+	background: #ffffff;
+}
+
+.ko-accessiyes-css-panel h2 {
+	margin-top: 0;
+}
+
+.ko-accessiyes-css-panel p:last-child {
+	margin-bottom: 0;
+}
+
+/*** CSS Editor ***/
+
+.ko-accessiyes-css-editor textarea {
+	display: block;
+	width: 100%;
+	min-height: 640px;
+	margin-top: 18px;
+	padding: 18px;
+	border: 1px solid #8c8f94;
+	border-radius: 2px;
+	background: #111111;
+	color: #f5f5f5;
+	font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+	font-size: 13px;
+	line-height: 1.6;
+	tab-size: 4;
+	white-space: pre;
+}
+
+.ko-accessiyes-css-editor textarea:focus {
+	border-color: #171717;
+	box-shadow: 0 0 0 2px rgba(23, 23, 23, 0.2);
+	outline: 1px solid transparent;
+}
+
+.ko-accessiyes-css-wrap .button-primary {
+	border-color: #111111;
+	background: #111111;
+}
+
+.ko-accessiyes-css-wrap .button-primary:focus,
+.ko-accessiyes-css-wrap .button-primary:hover {
+	border-color: #444444;
+	background: #444444;
+}
+
+/*** Integration Status ***/
+
+.ko-accessiyes-css-status {
+	display: flex;
+	align-items: center;
+	gap: 9px;
+	font-weight: 600;
+}
+
+.ko-accessiyes-css-status span {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: #b32d2e;
+}
+
+.ko-accessiyes-css-status.is-active span {
+	background: #00a32a;
+}
+
+/*** Page Footer ***/
+
+.ko-accessiyes-css-footer {
+	padding: 18px 2px;
+	color: #646970;
+	font-size: 12px;
+}
+
+/*** Responsive Styling ***/
+
+@media (max-width: 960px) {
+	.ko-accessiyes-css-layout {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (max-width: 782px) {
+	.ko-accessiyes-css-hero {
+		align-items: flex-start;
+		flex-direction: column;
+		padding: 26px;
+	}
+
+	.ko-accessiyes-css-hero img {
+		width: 220px;
+	}
+
+	.ko-accessiyes-css-editor textarea {
+		min-height: 520px;
+	}
+}
+
+/***** END KO ACCESSIYES CSS CUSTOMIZATIONS ADMIN STYLING *****/
