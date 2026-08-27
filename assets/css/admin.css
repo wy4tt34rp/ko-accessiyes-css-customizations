@@ -10,14 +10,20 @@
 
 .ko-accessiyes-css-layout {
 	display: grid;
-	grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
-	gap: 18px;
+	grid-template-columns: minmax(0, 2fr) minmax(300px, 0.72fr);
+	gap: 20px;
 	align-items: start;
 }
 
+.ko-accessiyes-css-main form,
 .ko-accessiyes-css-sidebar {
 	display: grid;
-	gap: 18px;
+	gap: 20px;
+}
+
+.ko-accessiyes-css-sidebar {
+	position: sticky;
+	top: 48px;
 }
 
 /*** Vela Hero ***/
@@ -65,6 +71,10 @@
 	color: #1d2327;
 }
 
+.ko-accessiyes-conflict-notice {
+	margin: 0 0 20px;
+}
+
 /*** Content Panels ***/
 
 .ko-accessiyes-css-panel {
@@ -75,6 +85,12 @@
 }
 
 .ko-accessiyes-css-panel h2 {
+	margin: 0 0 8px;
+	font-size: 20px;
+	line-height: 1.3;
+}
+
+.ko-accessiyes-css-panel p:first-of-type {
 	margin-top: 0;
 }
 
@@ -82,14 +98,92 @@
 	margin-bottom: 0;
 }
 
-/*** CSS Editor ***/
+/*** Form Controls ***/
 
+.ko-accessiyes-form-grid,
+.ko-accessiyes-breakpoints,
+.ko-accessiyes-number-row,
+.ko-accessiyes-ring-grid,
+.ko-accessiyes-statement-options {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 18px;
+}
+
+.ko-accessiyes-form-grid {
+	margin-top: 18px;
+}
+
+.ko-accessiyes-css-panel label > span:first-child,
+.ko-accessiyes-device-card > label > span:first-child {
+	display: block;
+	margin-bottom: 6px;
+	font-weight: 600;
+}
+
+.ko-accessiyes-css-panel input[type="text"],
+.ko-accessiyes-css-panel input[type="email"],
+.ko-accessiyes-css-panel input[type="url"],
+.ko-accessiyes-css-panel input[type="number"],
+.ko-accessiyes-css-panel select {
+	width: 100%;
+	max-width: none;
+}
+
+.ko-accessiyes-css-panel select[multiple] {
+	min-height: 164px;
+}
+
+.ko-accessiyes-css-panel input[type="color"] {
+	width: 100%;
+	height: 40px;
+	padding: 3px;
+}
+
+.ko-accessiyes-form-grid label > small,
+.ko-accessiyes-toggle small {
+	display: block;
+	margin-top: 5px;
+	color: #646970;
+	font-weight: 400;
+}
+
+.ko-accessiyes-full-field {
+	display: block;
+	margin-top: 16px;
+}
+
+.ko-accessiyes-inline-number {
+	display: grid !important;
+	grid-template-columns: minmax(0, 1fr) auto;
+	align-items: center;
+	margin: 0 !important;
+}
+
+.ko-accessiyes-inline-number small {
+	align-self: stretch;
+	display: flex;
+	align-items: center;
+	padding: 0 10px;
+	border: 1px solid #8c8f94;
+	border-left: 0;
+	border-radius: 0 4px 4px 0;
+	background: #f0f0f1;
+	color: #50575e;
+}
+
+.ko-accessiyes-inline-number input {
+	border-radius: 4px 0 0 4px;
+}
+
+/*** Script and CSS Editors ***/
+
+.ko-accessiyes-script-panel textarea,
 .ko-accessiyes-css-editor textarea {
 	display: block;
 	width: 100%;
-	min-height: 640px;
-	margin-top: 18px;
-	padding: 18px;
+	margin-top: 16px;
+	padding: 16px;
 	border: 1px solid #8c8f94;
 	border-radius: 2px;
 	background: #111111;
@@ -101,10 +195,123 @@
 	white-space: pre;
 }
 
+.ko-accessiyes-script-panel textarea {
+	min-height: 190px;
+}
+
+.ko-accessiyes-css-editor textarea {
+	min-height: 430px;
+}
+
+.ko-accessiyes-script-panel textarea:focus,
 .ko-accessiyes-css-editor textarea:focus {
 	border-color: #171717;
 	box-shadow: 0 0 0 2px rgba(23, 23, 23, 0.2);
 	outline: 1px solid transparent;
+}
+
+.ko-accessiyes-import-option {
+	display: flex;
+	align-items: flex-start;
+	gap: 7px;
+	margin-top: 14px;
+}
+
+.ko-accessiyes-import-option input {
+	margin-top: 2px;
+}
+
+/*** Checkboxes ***/
+
+.ko-accessiyes-toggle {
+	display: flex;
+	align-items: flex-start;
+	gap: 9px;
+	margin: 12px 0;
+}
+
+.ko-accessiyes-toggle input {
+	flex: 0 0 auto;
+	margin-top: 2px;
+}
+
+.ko-accessiyes-toggle > span {
+	display: block;
+	margin: 0 !important;
+}
+
+/*** Responsive Position and Ring Cards ***/
+
+.ko-accessiyes-breakpoints {
+	max-width: 660px;
+	margin: 18px 0;
+}
+
+.ko-accessiyes-device-grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 14px;
+}
+
+.ko-accessiyes-device-card,
+.ko-accessiyes-module-groups fieldset {
+	min-width: 0;
+	margin: 0;
+	padding: 18px;
+	border: 1px solid #dcdcde;
+	background: #fafafa;
+}
+
+.ko-accessiyes-device-card legend,
+.ko-accessiyes-module-groups legend {
+	padding: 0 7px;
+	font-size: 14px;
+	font-weight: 700;
+}
+
+.ko-accessiyes-device-card > label:not(.ko-accessiyes-toggle) {
+	display: block;
+	margin-top: 14px;
+}
+
+.ko-accessiyes-number-row {
+	grid-template-columns: 1fr;
+	gap: 0;
+}
+
+.ko-accessiyes-ring-grid {
+	margin-top: 18px;
+}
+
+/*** Statement and Module Controls ***/
+
+.ko-accessiyes-statement-options {
+	grid-template-columns: minmax(260px, 0.75fr) minmax(0, 1.6fr);
+	margin-top: 18px;
+}
+
+.ko-accessiyes-generated-statement .ko-accessiyes-form-grid {
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.ko-accessiyes-module-groups {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 14px;
+	margin-top: 18px;
+}
+
+.ko-accessiyes-toggle-grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 0;
+}
+
+/*** Buttons ***/
+
+.ko-accessiyes-css-main .submit {
+	margin: 0;
+	padding: 0;
 }
 
 .ko-accessiyes-css-wrap .button-primary {
@@ -148,9 +355,24 @@
 
 /*** Responsive Styling ***/
 
+@media (max-width: 1280px) {
+	.ko-accessiyes-device-grid,
+	.ko-accessiyes-module-groups {
+		grid-template-columns: 1fr;
+	}
+
+	.ko-accessiyes-statement-options {
+		grid-template-columns: 1fr;
+	}
+}
+
 @media (max-width: 960px) {
 	.ko-accessiyes-css-layout {
 		grid-template-columns: 1fr;
+	}
+
+	.ko-accessiyes-css-sidebar {
+		position: static;
 	}
 }
 
@@ -165,8 +387,15 @@
 		width: 220px;
 	}
 
+	.ko-accessiyes-form-grid,
+	.ko-accessiyes-breakpoints,
+	.ko-accessiyes-ring-grid,
+	.ko-accessiyes-generated-statement .ko-accessiyes-form-grid {
+		grid-template-columns: 1fr;
+	}
+
 	.ko-accessiyes-css-editor textarea {
-		min-height: 520px;
+		min-height: 360px;
 	}
 }
 

@@ -2,120 +2,114 @@
 
 ## Overview
 
-KO: AccessiYES CSS Customizations is a Vela-branded WordPress plugin for managing CSS that targets the AccessiYES Accessibility Widget. It provides an editable CSS screen under **Settings > AccessiYES CSS** and places the saved rules inside the widget's Shadow DOM after the widget is ready.
+KO: AccessiYES CSS Customizations is a reusable, Vela-branded WordPress integration for the AccessiYES accessibility widget. Version 1.1.0 can load a site-specific AccessiYES script itself, rebuild the widget configuration from managed WordPress controls, and place responsive styling inside the widget's open Shadow DOM.
 
-Standard WordPress theme CSS, the Customizer, Divi Theme Options, page-level stylesheets, and ordinary `wp_add_inline_style()` output all live in the main document. AccessiYES renders its button and menu inside an open Shadow DOM attached to `#cya11y-container`. Shadow DOM encapsulation prevents selectors in the main document from matching internal elements such as `.cya11y-menu-btn`, even when the selectors and specificity are otherwise correct.
+This is an independently developed KO/Vela integration. It is not affiliated with, sponsored by, or endorsed by AccessiYES. The name AccessiYES is used only to identify the compatible third-party service. No AccessiYES plugin code, JavaScript, CSS, statement templates, images, logos, or administration interface is included. Configuration property names are used solely as the technical interoperability contract for the vendor's CDN widget.
 
-This plugin bridges that boundary without editing the AccessiYES plugin. Its front-end script waits for the host, open shadow root, and widget button, then appends one namespaced `<style>` element containing the administrator-managed CSS. AccessiYES updates therefore do not overwrite the saved CSS or this plugin's files.
+See [SOURCE-PROVENANCE.md](SOURCE-PROVENANCE.md) for the distribution's authorship and third-party boundary.
 
-## Key Features
+The plugin mirrors the current configuration surface of the official AccessiYES WordPress plugin—widget status, colour, icon, size, labels, language selection, keyboard shortcut, statement settings, profiles, content tools, colour tools, and navigation tools—then adds:
 
-- Exact display name: `KO: AccessiYES CSS Customizations`
-- Vela-branded WordPress administration interface
-- Site-wide CSS editor under the standard Settings menu
-- Direct Settings link on the WordPress Plugins screen
-- Informational AccessiYES activation status
-- Shadow DOM-aware CSS injection
-- No front-end script while the editor is blank
-- A bounded 20-second wait for asynchronously rendered widgets
-- Existing saved CSS preserved through plugin updates and reactivation
-- Safe JSON encoding when saved CSS is passed to the bridge script
-- No edits to AccessiYES, Divi, the active theme, or page content
+- A third, independently configurable tablet range.
+- Custom mobile, tablet, and desktop breakpoints, visibility, corner, and margins.
+- Separate inner-ring and outer-ring controls.
+- An inner-icon width control.
+- Optional advanced CSS injected directly into the widget's Shadow DOM.
 
-## Requirements
+## Site-Specific Installation Script
 
-- WordPress 6.5 or later
-- PHP 7.4 or later
-- AccessiYES Accessibility Widget (`accessibility-widget`)
-- An open AccessiYES Shadow DOM hosted by `#cya11y-container`
+Open the [AccessiYES script generator](https://www.accessiyes.com/get-your-script/), generate a script for the site, and paste the complete snippet into **Settings > AccessiYES**.
 
-## Installation
+The full snippet is stored in that site's WordPress options so the reusable public plugin contains no customer account ID. For safety, the plugin does not print or execute the pasted snippet. It extracts only an allowlisted URL in this format:
 
-1. Upload `ko-accessiyes-css-customizations-v1.0.0.zip` through **Plugins > Add New > Upload Plugin**, or copy the `ko-accessiyes-css-customizations` directory to `/wp-content/plugins/`.
-2. Activate **KO: AccessiYES CSS Customizations**.
-3. Open **Settings > AccessiYES CSS**.
-4. Enter the site-specific CSS without `<style>` tags and click **Save CSS**.
-5. Clear site, Divi, host, and CDN caches before front-end verification.
-6. Confirm the intended widget appearance and keyboard focus treatment on the live page.
+```text
+https://cdn-cookieyes.com/widgets/accessibility.js?id=SITE_ID
+```
 
-The editor is blank on a new installation. This keeps site-specific presentation rules in the WordPress database rather than in the reusable public plugin source.
+The plugin then rebuilds `_cyA11yConfig` from the saved controls and loads that approved CDN URL asynchronously. When a new snippet is saved, the administrator can import supported configuration values from its JSON into the settings screen.
 
-## How the Shadow DOM Bridge Works
+## Managed Settings
 
-The AccessiYES front end creates a light-DOM host similar to:
+### Vendor-equivalent controls
+
+- Master widget status plus mobile, tablet, and desktop visibility.
+- Primary widget colour.
+- Default, accessibility-person, wheelchair, and assist icons.
+- 32px, 48px, and 64px launcher sizes.
+- Accessible launcher label and menu heading.
+- Fallback language and optional visitor language switcher.
+- Alt+A or Option+A keyboard shortcut.
+- Accessibility profiles.
+- Font sizing, title highlighting, link highlighting, dyslexia-friendly font, font weight, letter spacing, line height, and text alignment.
+- Dark contrast, light contrast, high contrast, high saturation, low saturation, and monochrome.
+- Reading guide, pause animations, big cursor, page read, and mute sounds.
+- Existing accessibility-statement URL.
+- Generated statement details: company, contact email, website, target standard, conformance status, and display inside the widget.
+
+The independently written KO generated-statement template is English and is populated only from the administrator's entries. It is not copied from or supplied by AccessiYES. Its wording must be reviewed before publication and is not legal advice.
+
+### KO extensions
+
+- Mobile maximum width, default `767px`.
+- Tablet maximum width, default `1024px`.
+- Independent launcher visibility, corner, horizontal margin, and vertical margin for mobile, tablet, and desktop.
+- Inner ring on/off, width, and colour. This controls the launcher's border.
+- Outer ring on/off, width, and colour. This controls the first solid `box-shadow` layer; a blank colour follows the primary widget colour.
+- Inner person/icon width, with `0` retaining the vendor default.
+- Advanced Shadow DOM CSS for narrowly scoped exceptions.
+
+The subtle depth shadows remain when the solid outer ring is disabled. The separate keyboard focus outline is preserved and its offset is adjusted to the configured outer-ring width. A user-requested high-contrast or forced-colours mode may restore a visible boundary for legibility even when the normal rings are disabled.
+
+## Why the Shadow DOM Bridge Is Required
+
+AccessiYES creates a light-DOM host similar to:
 
 ```html
 <div id="cya11y-container"></div>
 ```
 
-The widget attaches an open shadow root to that host and renders its button and menu inside the root. Browser style encapsulation means a document-level rule such as `.cya11y-menu-btn { ... }` cannot cross into the root.
+The launcher and menu are rendered inside an open shadow root attached to that host. Browser Shadow DOM encapsulation prevents CSS from the theme, Customizer, Divi, page-level stylesheets, or ordinary `wp_add_inline_style()` output from matching internal selectors such as `.cya11y-menu-btn`.
 
-When saved CSS exists, this plugin:
+This plugin waits for `#cya11y-container`, its open `shadowRoot`, and `.cya11y-menu-btn`. It then appends or updates one namespaced style element with the ID `ko-accessiyes-css-customizations-rules`. The wait stops after 20 seconds. Vendor files are never edited, so an AccessiYES update does not directly overwrite the managed styles.
 
-1. Enqueues a small footer script.
-2. Passes the saved CSS through safely encoded JSON.
-3. Checks for `#cya11y-container`, its `shadowRoot`, and `.cya11y-menu-btn` every 100 milliseconds.
-4. Stops as soon as the compatible widget is ready or after 20 seconds.
-5. Creates or updates a single style element with the ID `ko-accessiyes-css-customizations-rules` inside the shadow root.
+The responsive rules also override the menu's left/right alignment. This keeps the menu and launcher on the configured side when a browser crosses the KO tablet breakpoint, even though the vendor script currently exposes only mobile and desktop configuration slots.
 
-If AccessiYES changes its host ID, closes its Shadow DOM, or renames its internal selectors, the bridge or saved CSS may need to be updated.
+If AccessiYES changes its CDN host, host element, Shadow DOM mode, or internal selectors, this integration may need an update.
 
-## CSS Editing
+## Official Plugin Conflict Protection
 
-- Enter plain CSS only; do not include `<style>` tags.
-- Clearing the editor and saving prevents the bridge script from loading.
-- Saved CSS remains in the database during plugin updates and reactivation.
-- Uninstalling the plugin removes its saved option.
-- AccessiYES's own internal rules may use `!important`, so a narrowly targeted matching override may also require `!important`.
-- Do not remove keyboard focus indicators merely to change the resting appearance of the launcher.
-- For consistent CSS comments:
-  - Entire blocks use `/***** Descriptor *****/`.
-  - Sub-blocks use `/*** Descriptor ***/`.
-  - The closing block repeats the opening descriptor.
+Do not run this integration and the official `accessibility-widget` plugin as two widget loaders. When the official plugin is active, KO: AccessiYES CSS Customizations shows an admin warning, limits itself to applying the managed Shadow DOM styles to the existing widget, and deliberately does not load a second CDN widget or replace the official plugin's configuration. This preserves version 1.0.0 CSS during the transition.
 
-## Example: Remove the Button Rings and Enlarge the Icon
+For a safe transition:
 
-The following removes the white inner border and the solid outer color ring, retains the two subtle depth shadows, enlarges the person icon, and leaves the widget's separate keyboard focus outline intact:
+1. Install and activate KO: AccessiYES CSS Customizations while the official plugin remains active.
+2. Paste the generated script and configure all settings.
+3. Save the settings.
+4. Deactivate the official AccessiYES plugin.
+5. Clear WordPress, Divi, host, and CDN caches.
+6. Verify the launcher and menu on mobile, tablet, and desktop, including keyboard focus and the accessibility-statement link.
 
-```css
-/***** AccessiYES Accessibility Button *****/
+## Installation
 
-/*** Remove Rings and Enlarge Icon ***/
-.cya11y-menu-btn {
-	border: 0 !important;
-	padding: 0 !important;
-	box-shadow:
-		0 5px 15px #252c6126,
-		0 2px 4px #5d649433 !important;
-}
+1. Upload `ko-accessiyes-css-customizations-v1.1.0.zip` through **Plugins > Add New > Upload Plugin**, or copy the `ko-accessiyes-css-customizations` directory to `/wp-content/plugins/`.
+2. Activate **KO: AccessiYES CSS Customizations**.
+3. Open **Settings > AccessiYES**.
+4. Paste the full site-specific generator script.
+5. Review the imported values and configure the additional controls.
+6. Save the settings.
+7. Deactivate the official AccessiYES plugin before testing this plugin's loader.
 
-.cya11y-menu-btn .cya11y-btn-content {
-	display: flex !important;
-	align-items: center !important;
-	justify-content: center !important;
-	width: 100% !important;
-	height: 100% !important;
-	line-height: 0 !important;
-}
+New installations start with a blank script field. Updating from version 1.0.0 preserves existing advanced Shadow DOM CSS by migrating the former string option into the new settings array. Reactivation and normal plugin updates do not overwrite saved settings. Uninstalling the plugin removes its option.
 
-.cya11y-menu-btn .cya11y-btn-content svg {
-	display: block !important;
-	width: 20px !important;
-	min-width: 20px !important;
-	max-width: 20px !important;
-	height: auto !important;
-	min-height: 0 !important;
-	max-height: none !important;
-}
+## Advanced CSS
 
-/***** END AccessiYES Accessibility Button *****/
-```
+Enter CSS rules only, without `<style>` tags. The plugin removes style tags during sanitization and appends the remaining rules after the managed Shadow DOM rules, allowing a site-specific exception to take precedence.
 
-To remove every shadow rather than only the solid color ring, replace the `box-shadow` declaration with `box-shadow: none !important;`.
+Use advanced CSS sparingly. Managed controls should remain the first choice because they are validated and documented.
 
 ## Accessibility Scope
 
-This plugin changes presentation rules inside the AccessiYES widget. It does not audit, remediate, certify, or guarantee the accessibility or legal compliance of a WordPress website. Automated widgets and CSS changes are not substitutes for source-level remediation and knowledgeable manual testing.
+This plugin adds and styles a third-party visitor tool. It does not audit, remediate, certify, or guarantee the accessibility or legal compliance of a WordPress website. A widget is not a substitute for accessible source code, content practices, automated testing, knowledgeable manual testing, or legal advice.
 
 ## Development Notes
 
@@ -125,7 +119,7 @@ This plugin changes presentation rules inside the AccessiYES widget. It does not
 - Script handle: `ko-accessiyes-css-customizations`
 - Shadow style ID: `ko-accessiyes-css-customizations-rules`
 - Text domain: `ko-accessiyes-css-customizations`
-- Current version: `1.0.0`
+- Current version: `1.1.0`
 - Vela contact: [ko@velaagency.com](mailto:ko@velaagency.com)
 
 ## License
